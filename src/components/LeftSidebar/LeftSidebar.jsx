@@ -14,6 +14,12 @@ const LeftSidebar = () => {
                     <p>Home</p>
                 </div>
             </Link>
+            <Link to="/explore">
+                <div className="flex items-center space-x-6 px-2 py-2 hover:bg-slate-200 rounded-full cursor-pointer">
+                    <TagIcon fontSize="large" />
+                    <p>Explore</p>
+                </div>
+            </Link>
         </div>
     </div>;
 };
