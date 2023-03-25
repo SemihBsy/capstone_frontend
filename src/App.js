@@ -4,13 +4,14 @@ import './App.css';
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import Explore from "./pages/Explore/Explore";
-import Signin from "./pages/Signin"
+import Signin from "./pages/Signin/Signin";
+import Navbar from "./components/Navbar/Navbar";
 
 const Layout = () => {
   return (
-    <div>
-      <h1>Navbar</h1>
-      <Outlet></Outlet>
+    <div className="md:w-8/12 mx-auto">
+      <Navbar />
+      <Outlet />
     </div>
   );
 };
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div className="App">
-      <RouterProvider router={router}></RouterProvider>
+      <RouterProvider router={router} />
     </div>
   );
 }
