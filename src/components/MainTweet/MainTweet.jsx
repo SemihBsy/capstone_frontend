@@ -15,6 +15,7 @@ const MainTweet = () => {
                     Tweet
                 </button>
             </form>
+            MainTweet
         </div>
     )
 };
