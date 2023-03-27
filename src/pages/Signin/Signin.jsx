@@ -4,18 +4,21 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { loginStart, loginSuccess, loginFailed } from "../../redux/userSlice";
 
+import { useNavigate } from "react-router-dom";
+
 const Signin = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const handleLogin = async (e) => {
         e.preventDefault();
         dispatch(loginStart());
         try {
           const res = await axios.post("/auth/signin", { username, password });
           dispatch(loginSuccess(res.data));
+          navigate("/");
         } catch (err) {
           dispatch(loginFailed());
         }
