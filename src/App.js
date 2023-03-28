@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
-import './App.css';
+import "./App.css";
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import Explore from "./pages/Explore/Explore";
@@ -33,21 +33,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/explore",
-        element: <Explore />
+        element: <Explore />,
       },
       {
         path: "/signin",
-        element: <Signin />
+        element: <Signin />,
       },
       {
         path: "/signout",
-        element: <Signin />
+        element: <Signin />,
       },
     ],
   },
 ]);
-
-
 
 function App() {
   return (
