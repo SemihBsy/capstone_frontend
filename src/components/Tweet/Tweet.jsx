@@ -4,12 +4,15 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import formatDistance from "date-fns/formatDistance";
 
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+
 const Tweet = ({ tweet, setData }) => {
 	const { currentUser } = useSelector((state) => state.user);
 
 	const [userData, setUserData] = useState();
-    // Calculating distance from createdAt in database
-    const dateStr = formatDistance(new Date(tweet.createdAt), new Date())
+	// Calculating distance from createdAt in database
+	const dateStr = formatDistance(new Date(tweet.createdAt), new Date());
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -28,19 +31,27 @@ const Tweet = ({ tweet, setData }) => {
 
 	return (
 		<div>
-            {/* conditional for userData */}
+			{/* conditional for userData */}
 			{userData && (
 				<>
 					<div className="flex space-x-2">
 						{/* <img src="" alt="" /> */}
-						<Link to={`/profile/${userData._id}`} >
-                            <h3 className="font-bold">{userData.username}</h3>
-                        </Link>
+						<Link to={`/profile/${userData._id}`}>
+							<h3 className="font-bold">{userData.username}</h3>
+						</Link>
 
-                        <span className="font-normal">@{userData.username}</span>
-                        <p> - {dateStr}</p>
+						<span className="font-normal">@{userData.username}</span>
+						<p> - {dateStr}</p>
 					</div>
-                    
+
+					<p>{tweet.description}</p>
+					<button>
+						{tweet.likes.includes(currentUser._id) ? (
+							<FavoriteIcon className="mr-2 my-2 cursor-pointer"></FavoriteIcon>
+						) : (
+							<FavoriteBorderIcon className="mr-2 my-2 cursor-pointer"></FavoriteBorderIcon>
+						)}
+					</button>
 				</>
 			)}
 		</div>
