@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { useSelector } from "react-redux";
+import Tweet from "../Tweet/Tweet";
 
 const TimelineTweet = () => {
 	const [timeLine, setTimeLine] = useState(null);
@@ -15,18 +16,30 @@ const TimelineTweet = () => {
 					`/tweets/timeline/${currentUser._id}`,
 				);
 
-                setTimeLine(timelineTweets.data);
+				setTimeLine(timelineTweets.data);
 			} catch (err) {
-                console.log("error", err);
-            }
+				console.log("error", err);
+			}
 		};
 
-        fetchData();
+		fetchData();
 	}, [currentUser._id]);
 
-    console.log("Timeline", timeLine);
+	console.log("Timeline", timeLine);
 
-	return <div>TimelineTweet</div>;
+	return (
+		<div className="mt-6">
+			{timeLine &&
+				timeLine.map((tweet) => {
+					return (
+						<div key={tweet._id} className="p-2">
+                            {/* passing in the tweets */}
+							<Tweet tweet={tweet} setData={setTimeLine} />
+						</div>
+					);
+				})}
+		</div>
+	);
 };
 
 export default TimelineTweet;
