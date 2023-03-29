@@ -33,7 +33,7 @@ const TimelineTweet = () => {
 				timeLine.map((tweet) => {
 					return (
 						<div key={tweet._id} className="p-2">
-                            {/* passing in the tweets */}
+							{/* passing in the tweets */}
 							<Tweet tweet={tweet} setData={setTimeLine} />
 						</div>
 					);

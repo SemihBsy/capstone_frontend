@@ -11,7 +11,7 @@ const MainTweet = () => {
 					placeholder="What's happening"
 					maxLength={280}
 					className="bg-slate-200 rounded-lg w-full p-2"
-				></textarea>
+				/>
 				<button className="bg-blue-500 text-white py-2 px-4 rounded-full ml-auto">
 					Tweet
 				</button>
