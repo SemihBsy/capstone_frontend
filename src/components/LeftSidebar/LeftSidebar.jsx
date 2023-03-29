@@ -5,10 +5,11 @@ import HomeIcon from "@mui/icons-material/Home";
 import TagIcon from "@mui/icons-material/Tag";
 import PersonIcon from "@mui/icons-material/Person";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/userSlice";
 
 const LeftSidebar = () => {
+    const { currentUser } = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
 	const handleLogout = () => {
@@ -29,7 +30,7 @@ const LeftSidebar = () => {
 						<p>Explore</p>
 					</div>
 				</Link>
-				<Link to="/profile/">
+				<Link to={`/profile/${currentUser._id}`}>
 					<div className="flex items-center space-x-6 px-2 py-2 hover:bg-slate-200 rounded-full cursor-pointer">
 						<PersonIcon fontSize="large" />
 						<p>Profile</p>
