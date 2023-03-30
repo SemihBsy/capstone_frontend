@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+
+import { changeProfile, logout } from "../../redux/userSlice";
+import { useNavigate } from "react-router-dom";
 
 import {
 	getStorage,
@@ -10,8 +15,13 @@ import {
 import app from "../../firebase";
 
 const EditProfile = ({ setOpen }) => {
+	const { currentUser } = useSelector((state) => state.user);
+
 	const [img, setImg] = useState(null);
-	const [imgUploadProgress, setImgUploadProgress] = useState();
+	const [imgUploadProgress, setImgUploadProgress] = useState(0);
+
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const uploadImg = (file) => {
 		const storage = getStorage(app);
@@ -41,16 +51,34 @@ const EditProfile = ({ setOpen }) => {
 			(error) => {},
 			() => {
 				// Upload completed successfully, now we can get the download URL
-				getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-					console.log("File available at", downloadURL);
+				getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+					try {
+						const updateProfile = await axios.put(`/users/${currentUser._id}`, {
+							profilePicture: downloadURL,
+						});
+
+						console.log(updateProfile);
+					} catch (error) {
+						console.log(error);
+					}
+
+					console.log("downloaded " + downloadURL);
+					dispatch(changeProfile(downloadURL));
 				});
 			},
 		);
 	};
 
-    useEffect(() => {
-        img && uploadImg(img);
-    }, [img]);
+	const handleDelete = async () => {
+		const deleteProfile = await axios.delete(`/users/${currentUser._id}`);
+		dispatch(logout());
+		navigate("/signin");
+	};
+
+	useEffect(() => {
+		img && uploadImg(img);
+	}, [img]);
+
 	return (
 		<div className="absolute w-full h-full top-0 left-0 bg-transparent flex items-center justify-center">
 			<div className="w-[600px] h-[600px] bg-slate-200 rounded-lg p-8 flex flex-col gap-4 relative">
@@ -74,7 +102,10 @@ const EditProfile = ({ setOpen }) => {
 				)}
 
 				<p>Delete Acount</p>
-				<button className="bg-red-500 text-white py-2 rounded-full">
+				<button
+					className="bg-red-500 text-white py-2 rounded-full"
+					onClick={handleDelete}
+				>
 					Delete account
 				</button>
 			</div>
