@@ -25,6 +25,8 @@ const Navbar = () => {
 					<h2 className="font-bold text-2xl">
 						{location.includes("profile") ? (
 							<UserPlaceholder setUserData={setUserData} userData={userData} />
+						) : location.includes("explore") ? (
+							"Explore"
 						) : (
 							"Home"
 						)}
