@@ -37,7 +37,7 @@ const LeftSidebar = () => {
 					</div>
 				</Link>
 			</div>
-			<div className="flex justify-between">
+			<div className="fixed bottom-3 flex justify-between">
 				<div>
 					<p className="font-bold">{currentUser.username}</p>
 					<p className="font-bold">@{currentUser.username}</p>
