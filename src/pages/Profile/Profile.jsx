@@ -4,9 +4,10 @@ import RightSidebar from "../../components/RightSidebar/RightSidebar";
 import EditProfile from "../../components/EditProfile/EditProfile";
 
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Tweet from "../../components/Tweet/Tweet";
+import { following } from "../../redux/userSlice";
 
 const Profile = () => {
 	const [open, setOpen] = useState(false);
@@ -15,6 +16,7 @@ const Profile = () => {
 	const [userProfile, setUserProfile] = useState(null);
 
 	const { id } = useParams();
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -30,6 +32,28 @@ const Profile = () => {
 		};
 		fetchData();
 	}, [currentUser, id]);
+
+	const handleFollow = async () => {
+		if(!currentUser.following.includes(id)) {
+			try {
+				const follow = await axios.put(`/users/follow/${id}`, {
+					id : currentUser._id
+				});
+				dispatch(following(id))
+			} catch (err) {
+				console.log("error", err);
+			}
+		} else {
+			try {
+				const unfollow = await axios.put(`/users/unfollow/${id}`, {
+					id: currentUser._id,
+				});
+				dispatch(following(id));
+			} catch(err) {
+				console.log("error", err);
+			}
+		}
+	}
 
 	return (
 		<>
@@ -52,11 +76,12 @@ const Profile = () => {
 								Edit Profile
 							</button>
 						) : currentUser.following.includes(id) ? (
-							<button className="px-4 -y-2 bg-blue-500 rounded-full text-white">
+							<button className="px-4 -y-2 bg-blue-500 rounded-full text-white" onClick={handleFollow}>
 								Following
 							</button>
 						) : (
-							<button className="px-4 -y-2 bg-blue-500 rounded-full text-white">
+							<button className="px-4 -y-2 bg-blue-500 rounded-full text-white" 
+							onClick={handleFollow}>
 								Follow
 							</button>
 						)}
