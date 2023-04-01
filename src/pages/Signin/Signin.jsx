@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import baseURL from "../../../config.js";
+import baseURL from "../../config.js";
 import axios from "axios";
 
 import { useDispatch } from "react-redux";
