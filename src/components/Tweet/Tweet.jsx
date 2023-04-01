@@ -47,7 +47,7 @@ const Tweet = ({ tweet, setData }) => {
 				const newData = await axios.get(baseURL + `/tweets/explore`);
 				setData(newData.data);
 			} else {
-				const newData = await axios.get(baseURL + `tweets/timeline/${currentUser._id}`);
+				const newData = await axios.get(baseURL + `/tweets/timeline/${currentUser._id}`);
 				setData(newData.data);
 			}
 		} catch (err) {
