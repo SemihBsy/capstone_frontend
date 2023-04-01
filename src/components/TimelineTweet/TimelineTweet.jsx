@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import baseURL from "../../config.js";
 
 import { useSelector } from "react-redux";
 import Tweet from "../Tweet/Tweet";
@@ -13,7 +14,7 @@ const TimelineTweet = () => {
 		const fetchData = async () => {
 			try {
 				const timelineTweets = await axios.get(
-					`/tweets/timeline/${currentUser._id}`,
+					baseURL + `/tweets/timeline/${currentUser._id}`,
 				);
 
 				setTimeLine(timelineTweets.data);

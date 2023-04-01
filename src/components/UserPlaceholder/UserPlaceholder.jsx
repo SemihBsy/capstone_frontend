@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import baseURL from "../../config.js";
 
 import { useLocation, useParams } from "react-router-dom";
 
@@ -10,7 +11,7 @@ const UserPlaceholder = ({ setUserData, userData }) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const userProfile = await axios.get(`/users/find/${id}`);
+				const userProfile = await axios.get(baseURL + `/users/find/${id}`);
 				setUserData(userProfile.data);
 			} catch (e) {
 				console.log(e);

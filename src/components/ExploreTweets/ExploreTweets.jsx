@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import baseURL from "../../config.js";
 
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -11,7 +12,7 @@ const ExploreTweets = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const exploreTweets = await axios.get("/tweets/explore");
+				const exploreTweets = await axios.get(baseURL + "/tweets/explore");
 				setExplore(exploreTweets.data);
 			} catch (err) {
 				console.log("error", err);

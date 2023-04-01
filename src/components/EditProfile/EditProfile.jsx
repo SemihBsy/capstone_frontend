@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import baseURL from "../../config.js";
 import { useSelector, useDispatch } from "react-redux";
 
 import { changeProfile, logout } from "../../redux/userSlice";
@@ -53,7 +54,7 @@ const EditProfile = ({ setOpen }) => {
 				// Upload completed successfully, now we can get the download URL
 				getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
 					try {
-						const updateProfile = await axios.put(`/users/${currentUser._id}`, {
+						const updateProfile = await axios.put(baseURL + `/users/${currentUser._id}`, {
 							profilePicture: downloadURL,
 						});
 
@@ -70,7 +71,7 @@ const EditProfile = ({ setOpen }) => {
 	};
 
 	const handleDelete = async () => {
-		const deleteProfile = await axios.delete(`/users/${currentUser._id}`);
+		const deleteProfile = await axios.delete(baseURL + `/users/${currentUser._id}`);
 		dispatch(logout());
 		navigate("/signin");
 	};

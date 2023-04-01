@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import baseURL from "../../config.js";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Link, useLocation, useParams } from "react-router-dom";
@@ -20,7 +21,7 @@ const Tweet = ({ tweet, setData }) => {
 		const fetchData = async () => {
 			try {
 				// finding the user from the tweet
-				const findUser = await axios.get(`/users/find/${tweet.userId}`);
+				const findUser = await axios.get(baseURL + `/users/find/${tweet.userId}`);
 
 				setUserData(findUser.data);
 			} catch (err) {
@@ -35,18 +36,18 @@ const Tweet = ({ tweet, setData }) => {
 		e.preventDefault();
 
 		try {
-			const like = await axios.put(`/tweets/${tweet._id}/like`, {
+			const like = await axios.put(baseURL + `/tweets/${tweet._id}/like`, {
 				id: currentUser._id,
 			});
 
 			if (location.includes("profile")) {
-				const newData = await axios.get(`/tweets/user/all/${id}`);
+				const newData = await axios.get(baseURL + `/tweets/user/all/${id}`);
 				setData(newData.data);
 			} else if (location.includes("explore")) {
-				const newData = await axios.get(`/tweets/explore`);
+				const newData = await axios.get(baseURL + `/tweets/explore`);
 				setData(newData.data);
 			} else {
-				const newData = await axios.get(`tweets/timeline/${currentUser._id}`);
+				const newData = await axios.get(baseURL + `tweets/timeline/${currentUser._id}`);
 				setData(newData.data);
 			}
 		} catch (err) {
