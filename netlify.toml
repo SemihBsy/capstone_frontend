@@ -1,4 +1,4 @@
 [[redirects]]
-  from = "/*"
-  to = "/"
+  from = "/api"
+  to = "https://zweeter-backend.onrender.com/api"
   status = 200
