@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios"
+import baseURL from "../../../config.js";
+import axios from "axios";
 
 import { useDispatch } from "react-redux";
 import { loginStart, loginSuccess, loginFailed } from "../../redux/userSlice";
@@ -18,7 +19,7 @@ const Signin = () => {
 		e.preventDefault();
 		dispatch(loginStart());
 		try {
-			const res = await axios.post("/auth/signin", {
+			const res = await axios.post(baseURL + "/auth/signin", {
 				username,
 				password,
 			});
@@ -33,7 +34,7 @@ const Signin = () => {
 		e.preventDefault();
 		dispatch(loginStart());
 		try {
-			const res = await axios.post("/auth/signup", {
+			const res = await axios.post(baseURL + "/auth/signup", {
 				username,
 				email,
 				password,
